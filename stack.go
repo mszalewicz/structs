@@ -1,14 +1,12 @@
 package structs
 
-const resizeSize int = 100
-
-type stack[T any] struct {
+type stack[T Ordered] struct {
 	values   *[]T
 	topIndex int
 }
 
-// Initilizes stack for given type T
-func NewStack[T any]() *stack[T] {
+// Initializes stack for given type T
+func NewStack[T Ordered]() *stack[T] {
 	newStack := new(stack[T])
 	newSlice := make([]T, 0, resizeSize)
 	newStack.values = &newSlice
@@ -45,7 +43,11 @@ func (s *stack[T]) Pop() interface{} {
 }
 
 // Returns value of current stack top.
-func (s *stack[T]) Peek() T {
+func (s *stack[T]) Peek() interface{} {
+	if s.topIndex == -1 {
+		return nil
+	}
+
 	return (*s.values)[s.topIndex]
 }
 

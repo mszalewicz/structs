@@ -114,3 +114,153 @@ func TestSwap(t *testing.T) {
 	}
 
 }
+
+func TestQuicksort(t *testing.T) {
+
+	functionName := "quicksort"
+
+	tests := []struct {
+		input    []int
+		expected []int
+	}{
+		{[]int{5, 9, 7, 1, 4}, []int{1, 4, 5, 7, 9}},
+		{[]int{9, 11, 1, 0, 3, 4}, []int{0, 1, 3, 4, 9, 11}},
+		{[]int{3, 2, 4, 0, 711, 1}, []int{0, 1, 2, 3, 4, 711}},
+	}
+
+	for index, test := range tests {
+		t.Run(fmt.Sprintf("%s test %d", functionName, index), func(t *testing.T) {
+			ll := NewLinkedList[int]()
+			for _, element := range test.input {
+				ll.Insert(element)
+			}
+
+			ll.Sort()
+			currentNode := ll.head
+
+			for i := range ll.length - 1 {
+				result := currentNode.value
+
+				if result != test.expected[i] {
+					t.Fatalf("%s fail - expected: %v | result: %v", functionName, test.expected[i], result)
+				}
+
+				currentNode = currentNode.next
+			}
+
+		})
+	}
+
+}
+
+func TestDeleteBeginning(t *testing.T) {
+
+	functionName := "DeleteBeginning"
+
+	tests := []struct {
+		input    []int
+		expected []int
+	}{
+		{[]int{5, 9, 7, 1, 4}, []int{9, 7, 1, 4}},
+		{[]int{9, 11, 1, 0, 3, 4}, []int{11, 1, 0, 3, 4}},
+		{[]int{3, 2}, []int{2}},
+	}
+
+	for index, test := range tests {
+		t.Run(fmt.Sprintf("%s test %d", functionName, index), func(t *testing.T) {
+			ll := NewLinkedList[int]()
+			for _, element := range test.input {
+				ll.Insert(element)
+			}
+
+			ll.DeleteBeginning()
+			currentNode := ll.head
+
+			for i := range ll.length - 1 {
+				result := currentNode.value
+
+				if result != test.expected[i] {
+					t.Fatalf("%s fail - expected: %v | result: %v", functionName, test.expected[i], result)
+				}
+
+				currentNode = currentNode.next
+			}
+
+		})
+	}
+}
+
+func TestDeleteEnd(t *testing.T) {
+
+	functionName := "DeleteEnd"
+
+	tests := []struct {
+		input    []int
+		expected []int
+	}{
+		{[]int{5, 9, 7, 1, 4}, []int{5, 9, 7, 1}},
+		{[]int{9, 11, 1, 0, 3, 4}, []int{9, 11, 1, 0, 3}},
+		{[]int{3, 2}, []int{3}},
+	}
+
+	for index, test := range tests {
+		t.Run(fmt.Sprintf("%s test %d", functionName, index), func(t *testing.T) {
+			ll := NewLinkedList[int]()
+			for _, element := range test.input {
+				ll.Insert(element)
+			}
+
+			ll.DeleteEnd()
+			currentNode := ll.head
+
+			for i := range ll.length - 1 {
+				result := currentNode.value
+
+				if result != test.expected[i] {
+					t.Fatalf("%s fail - expected: %v | result: %v", functionName, test.expected[i], result)
+				}
+
+				currentNode = currentNode.next
+			}
+
+		})
+	}
+}
+
+func TestDeleteAtIndex(t *testing.T) {
+
+	functionName := "AtIndex"
+
+	tests := []struct {
+		index    int
+		input    []int
+		expected []int
+	}{
+		{0, []int{5, 9, 7, 1, 4}, []int{9, 7, 1, 4}},
+		{4, []int{9, 11, 1, 0, 3, 4}, []int{9, 11, 1, 0, 4}},
+		{1, []int{3, 2}, []int{3}},
+	}
+
+	for index, test := range tests {
+		t.Run(fmt.Sprintf("%s test %d", functionName, index), func(t *testing.T) {
+			ll := NewLinkedList[int]()
+			for _, element := range test.input {
+				ll.Insert(element)
+			}
+
+			ll.DeleteAtIndex(test.index)
+			currentNode := ll.head
+
+			for i := range ll.length - 1 {
+				result := currentNode.value
+
+				if result != test.expected[i] {
+					t.Fatalf("%s fail - expected: %v | result: %v", functionName, test.expected[i], result)
+				}
+
+				currentNode = currentNode.next
+			}
+
+		})
+	}
+}
